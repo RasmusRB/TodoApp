@@ -18,8 +18,13 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
   const { isDark, theme } = useSelector((state: RootState) => state.persistedTheme);
   const dispatch = useAppDispatch();
 
-  const handlePress = () => {
+  const handleDarkPress = () => {
     dispatch(setTheme('dark'));
+    console.log('press', theme);
+  };
+
+  const handleLightPress = () => {
+    dispatch(setTheme('light'));
     console.log('press', theme);
   };
 
@@ -31,12 +36,17 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
         styles.container,
         { backgroundColor: isDark ? Colors.dark.background : Colors.light.background },
       ]}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
+        {title}
+      </Text>
       <View style={styles.separator} />
-      <TouchableOpacity onPress={handlePress}>
-        <Text>Theme</Text>
+      <TouchableOpacity onPress={handleDarkPress}>
+        <Text style={{ color: isDark ? Colors.dark.text : Colors.light.text }}>Dark</Text>
       </TouchableOpacity>
-      <EditScreenInfo path={path} />
+      <TouchableOpacity onPress={handleLightPress}>
+        <Text style={{ color: isDark ? Colors.dark.text : Colors.light.text }}>Light</Text>
+      </TouchableOpacity>
+      <EditScreenInfo path={path} isDark={isDark} />
       {children}
     </View>
   );

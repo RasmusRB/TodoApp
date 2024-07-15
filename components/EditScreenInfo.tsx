@@ -1,17 +1,29 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { Colors } from '~/constants/Colors';
 
-export default function EditScreenInfo({ path }: { path: string }) {
+export default function EditScreenInfo({ path, isDark }: { path: string; isDark: boolean }) {
   const title = 'Open up the code for this screen:';
   const description =
     'Change any of the text, save the file, and your app will automatically update.';
 
   return (
     <View style={styles.getStartedContainer}>
-      <Text style={styles.getStartedText}>{title}</Text>
-      <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-        <Text>{path}</Text>
+      <Text
+        style={[styles.getStartedText, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
+        {title}
+      </Text>
+      <View
+        style={[
+          styles.codeHighlightContainer,
+          styles.homeScreenFilename,
+          { backgroundColor: isDark ? Colors.dark.background : Colors.light.background },
+        ]}>
+        <Text style={{ color: isDark ? Colors.dark.text : Colors.light.text }}>{path}</Text>
       </View>
-      <Text style={styles.getStartedText}>{description}</Text>
+      <Text
+        style={[styles.getStartedText, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
+        {description}
+      </Text>
     </View>
   );
 }
